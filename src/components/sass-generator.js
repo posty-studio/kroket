@@ -61,7 +61,7 @@ const generateSassConfig = (config) => {
     sassConfig.utilities[key].property = value.property;
   }
 
-  return `$burrito-config: ${convertJs(sassConfig)};`;
+  return `$kroket-config: ${convertJs(sassConfig)};`;
 };
 
 const addMixins = (config) => {
@@ -77,7 +77,7 @@ const addMixins = (config) => {
     }
 
     response += `@function get-${key}($key) {
-        $response: map-get(map-get(map-get($burrito-config, 'items'), '${key}'), $key);
+        $response: map-get(map-get(map-get($kroket-config, 'items'), '${key}'), $key);
 
         @if ($response) {
           @return $response;

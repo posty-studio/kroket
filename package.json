@@ -1,23 +1,23 @@
 {
-  "name": "burrito",
+  "name": "kroket",
   "version": "0.0.1",
-  "description": "Burrito generates tokens and utility classes for your Sass project.",
+  "description": "Kroket generates tokens and utility classes for your Sass project.",
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "bin": {
-    "burrito": "./src/index.js"
+    "kroket": "./src/index.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/posty-studio/burrito.git"
+    "url": "git+https://github.com/posty-studio/kroket.git"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/posty-studio/burrito/issues"
+    "url": "https://github.com/posty-studio/kroket/issues"
   },
   "homepage": "https://posty.studio",
   "dependencies": {
