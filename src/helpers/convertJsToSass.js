@@ -19,7 +19,7 @@ function convertJsToSass(value) {
       case 'number':
         return value;
       case 'string':
-        return value.startsWith('#') || value.endsWith('px') ? value : `"${strEsc(value)}"`;
+        return isCssColor(value) || value.endsWith('px') ? value : `"${strEsc(value)}"`;
       case 'object':
         if (isPlainObject(value)) {
           indentLevel += 1;
@@ -64,6 +64,20 @@ function indentsToSpaces(indentCount) {
 
 function isNull(value) {
   return value === null;
+}
+
+function isCssColor(value) {
+  if (value === 'transparent') {
+    return true;
+  }
+
+  return (
+    value.startsWith('#') ||
+    value.startsWith('rgb(') ||
+    value.startsWith('rgba') ||
+    value.startsWith('hsl(') ||
+    value.startsWith('hsla(')
+  );
 }
 
 function isNotUndefined(value) {
