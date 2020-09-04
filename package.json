@@ -22,8 +22,9 @@
   "homepage": "https://posty.studio",
   "dependencies": {
     "chalk": "^3.0.0",
+    "convert-string-to-number": "^1.0.3",
     "cosmiconfig": "^6.0.0",
-    "json-sass-vars": "^3.1.0",
+    "lodash.isplainobject": "^4.0.6",
     "prettier": "^2.1.1",
     "shelljs": "^0.8.4"
   }

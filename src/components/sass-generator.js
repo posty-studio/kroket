@@ -2,7 +2,7 @@ const chalk = require('chalk');
 const fs = require('fs');
 const shell = require('shelljs');
 const path = require('path');
-const {convertJs} = require('json-sass-vars');
+const convertJsToSass = require('../helpers/convertJsToSass');
 const prettier = require('prettier');
 
 const generateClasses = (utilities, targets, prefix = '') => {
@@ -61,7 +61,7 @@ const generateSassConfig = (config) => {
     sassConfig.utilities[key].property = value.property;
   }
 
-  return `$kroket-config: ${convertJs(sassConfig)};`;
+  return `$kroket-config: ${convertJsToSass(sassConfig)};`;
 };
 
 const addMixins = (config) => {
