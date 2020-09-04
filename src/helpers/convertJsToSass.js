@@ -19,7 +19,7 @@ function convertJsToSass(value) {
       case 'number':
         return value;
       case 'string':
-        return value.endsWith('px') ? value : `"${strEsc(value)}"`;
+        return value.startsWith('#') || value.endsWith('px') ? value : `"${strEsc(value)}"`;
       case 'object':
         if (isPlainObject(value)) {
           indentLevel += 1;
