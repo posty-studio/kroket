@@ -38,9 +38,9 @@ module.exports = {
     },
   },
   breakpoints: {
-    sm: '32em',
-    md: '48em',
-    lg: '68em',
+    sm: '(min-width: 32em)',
+    md: '(min-width: 48em)',
+    lg: '(min-width: 68em)',
   },
   utilities: {
     'bg': {
