@@ -48,17 +48,28 @@ const generateCssUtilities = (config) => {
 const generateSassConfig = (config) => {
   let sassConfig = {
     items: {},
+    breakpoints: {},
     utilities: {},
   };
 
-  for (const [key, value] of Object.entries(config.items)) {
-    sassConfig.items[key] = value.items;
+  if (config.items) {
+    for (const [key, value] of Object.entries(config.items)) {
+      sassConfig.items[key] = value.items;
+    }
   }
 
-  for (const [key, value] of Object.entries(config.utilities)) {
-    sassConfig.utilities[key] = {};
-    sassConfig.utilities[key].items = value.items;
-    sassConfig.utilities[key].property = value.property;
+  if (config.utilities) {
+    for (const [key, value] of Object.entries(config.utilities)) {
+      sassConfig.utilities[key] = {};
+      sassConfig.utilities[key].items = value.items;
+      sassConfig.utilities[key].property = value.property;
+    }
+  }
+
+  if (config.breakpoints) {
+    for (const [key, value] of Object.entries(config.breakpoints)) {
+      sassConfig.breakpoints[key] = value;
+    }
   }
 
   return `$kroket-config: ${convertJsToSass(sassConfig)};`;
