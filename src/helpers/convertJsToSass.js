@@ -19,7 +19,7 @@ function convertJsToSass(value) {
       case 'number':
         return value;
       case 'string':
-        return isCssColor(value) || value.endsWith('px') ? value : `"${strEsc(value)}"`;
+        return isCssUnit(value) ? value : `"${strEsc(value)}"`;
       case 'object':
         if (isPlainObject(value)) {
           indentLevel += 1;
@@ -66,18 +66,28 @@ function isNull(value) {
   return value === null;
 }
 
-function isCssColor(value) {
-  if (value === 'transparent') {
+function isCssUnit(value) {
+  // Special cases
+  if (['transparent'].includes(value)) {
     return true;
   }
 
-  return (
-    value.startsWith('#') ||
-    value.startsWith('rgb(') ||
-    value.startsWith('rgba') ||
-    value.startsWith('hsl(') ||
-    value.startsWith('hsla(')
-  );
+  // Measuring unit
+  if (RegExp(/^[0-9]+[0-9.]*(rem|em|px|%|ch|vh|vw|vmin|vmax|ex)$/).test(value)) {
+    return true;
+  }
+
+  // HEX color
+  if (RegExp(/^#{1}[a-fA-F0-9]{6}|^#{1}[a-fA-F0-9]{3}$/).test(value)) {
+    return true;
+  }
+
+  // CSS color
+  if (RegExp(/^(rgb|hsl){1}a?((){1}(.)*()){1}$/).test(value)) {
+    return true;
+  }
+
+  return false;
 }
 
 function isNotUndefined(value) {

@@ -2,8 +2,8 @@
 
 const {cosmiconfigSync} = require('cosmiconfig');
 const chalk = require('chalk');
-const sassGenerator = require('./components/sass-generator.js');
-const jsonGenerator = require('./components/json-generator.js');
+const sassGenerator = require('./components/sassGenerator.js');
+const jsonGenerator = require('./components/jsonGenerator.js');
 
 let config = require('./default/config.js');
 
