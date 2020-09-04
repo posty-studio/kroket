@@ -8,7 +8,7 @@ Kroket generates tokens and utility classes for your Sass project.
 
 Install Kroket:
 
-````
+```
 npm install kroket
 ```
 
