@@ -1,0 +1,62 @@
+/// GET CONFIG VALUE FUNCTION
+/// Returns back a 1 dimensional (key value pair) config value if available.
+///
+/// @param {string} $key - The configured utility’s key
+/// @param {string} $value-key - The value key that you are looking for within the utilty
+///
+@function get-utility($key, $value-key) {
+  $utility: map-get(map-get($burrito-config, 'utilities'), $group);
+  $items: map-get($utility, 'items');
+  $item-value: map-get($items, $value-key);
+
+  @if ($item-value) {
+    @return $item-value;
+  } @else {
+    @warn #{'Value: ‘' + $value-key + '’ doesn’t exist in ‘' + $key + '’' };
+  }
+}
+
+/// APPLY UTILITY MIXIN
+/// Grab the property and value of one of the $burrito-config utilities
+/// that the generator will generate a class for.
+///
+/// @param {string} $key - The configured utility’s key
+/// @param {string} $value-key - The value key that you are looking for within the utilty
+///
+@mixin apply-utility($key, $value-key) {
+  $utility: map-get(map-get($burrito-config, 'utilities'), $key);
+  $property: map-get($utility, 'property');
+  $items: map-get($utility, 'items');
+  $item-value: map-get($items, $value-key);
+
+  @if ($property and $item-value) {
+    #{ $property }: #{$item-value};
+  } @else {
+    @if ($property) {
+      @warn #{'Value: ‘' + $value-key + '’ doesn’t exist in ‘' + $key + '’' };
+    }
+
+    @if ($item-value) {
+      @warn #{ 'Utility ‘' + $key + '’ doesn’t exist' };
+    }
+  }
+}
+
+/// MEDIA QUERY MIXIN
+/// Pass in the key of one of your breakpoints set in `$burrito-config['breakpoints']`
+/// and this mixin will generate the @media query with your configured value.
+///
+/// @param {string} $key - The key of your configured breakpoint
+///
+@mixin media-query($key) {
+  $breakpoints: map-get($burrito-config, 'breakpoints');
+  $matched-breakpoint: map-get($breakpoints, $key);
+
+  @if not $matched-breakpoint {
+    @warn #{ 'Breakpoint, ‘' + $key + '’ not found in `$burrito-config`. Make sure it’s set in the ‘breakpoints’ section of your Burrito config file.' };
+  } @else {
+    @media #{ $matched-breakpoint } {
+      @content;
+    }
+  }
+}
