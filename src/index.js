@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 const {cosmiconfigSync} = require('cosmiconfig');
 const chalk = require('chalk');
 const sassGenerator = require('./components/sassGenerator.js');
@@ -7,7 +5,7 @@ const jsonGenerator = require('./components/jsonGenerator.js');
 
 let config = require('./default/config.js');
 
-const init = () => {
+module.exports = () => {
   const userConfig = cosmiconfigSync('kroket', {searchPlaces: ['kroket.config.js']}).search();
 
   if (userConfig) {
@@ -19,5 +17,3 @@ const init = () => {
 
   console.log(chalk.green('Config and classes generated!'));
 };
-
-init();
