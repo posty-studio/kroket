@@ -1,30 +1,17 @@
-/// GET CONFIG VALUE FUNCTION
-/// Returns back a 1 dimensional (key value pair) config value if available.
-///
-/// @param {string} $key - The configured utility’s key
-/// @param {string} $value-key - The value key that you are looking for within the utilty
-///
-@function get-utility($key, $value-key) {
+@function get-utility($group, $key) {
   $utility: map-get(map-get($kroket-config, 'utilities'), $group);
   $items: map-get($utility, 'items');
-  $item-value: map-get($items, $value-key);
+  $item-value: map-get($items, $key);
 
   @if ($item-value) {
     @return $item-value;
   } @else {
-    @warn #{'Value: ‘' + $value-key + '’ doesn’t exist in ‘' + $key + '’' };
+    @warn #{'Value: ‘' + $key + '’ doesn’t exist in ‘' + $group + '’' };
   }
 }
 
-/// APPLY UTILITY MIXIN
-/// Grab the property and value of one of the $kroket-config utilities
-/// that the generator will generate a class for.
-///
-/// @param {string} $key - The configured utility’s key
-/// @param {string} $value-key - The value key that you are looking for within the utilty
-///
-@mixin apply-utility($key, $value-key) {
-  $utility: map-get(map-get($kroket-config, 'utilities'), $key);
+@mixin apply-utility($group, $key) {
+  $utility: map-get(map-get($kroket-config, 'utilities'), $group);
   $property: map-get($utility, 'property');
   $items: map-get($utility, 'items');
   $item-value: map-get($items, $value-key);
@@ -33,7 +20,7 @@
     #{ $property }: #{$item-value};
   } @else {
     @if ($property) {
-      @warn #{'Value: ‘' + $value-key + '’ doesn’t exist in ‘' + $key + '’' };
+      @warn #{'Value: ‘' + $key + '’ doesn’t exist in ‘' + $group + '’' };
     }
 
     @if ($item-value) {
@@ -42,12 +29,6 @@
   }
 }
 
-/// MEDIA QUERY MIXIN
-/// Pass in the key of one of your breakpoints set in `$kroket-config['breakpoints']`
-/// and this mixin will generate the @media query with your configured value.
-///
-/// @param {string} $key - The key of your configured breakpoint
-///
 @mixin media-query($key) {
   $breakpoints: map-get($kroket-config, 'breakpoints');
   $matched-breakpoint: map-get($breakpoints, $key);

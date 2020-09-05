@@ -80,23 +80,27 @@ const addMixins = (config) => {
     return null;
   }
 
-  let response = '';
+  const items = Object.entries(config.items).filter((item) => item[1].output.includes('sass'));
 
-  for (const [key, item] of Object.entries(config.items)) {
-    if (!item.output.includes('sass')) {
-      continue;
-    }
+  if (!items) {
+    return null;
+  }
 
-    response += `@function get-${key}($key) {
-        $response: map-get(map-get(map-get($kroket-config, 'items'), '${key}'), $key);
+  let response = `@function get-item($group, $key) {
+        $response: map-get(map-get(map-get($kroket-config, 'items'), $group), $key);
 
         @if ($response) {
-          @return $response;
+            @return $response;
         }
 
-        @warn #{'Item "' + $key + '" not found.'};
+        @warn #{'Item "' + $key + '" not found in "' + $group + '".'};
 
         @return null;
+    }\n\n`;
+
+  for (const key of Object.keys(config.items)) {
+    response += `@function get-${key}($key) {
+        @return get-item('${key}', $key);
     }\n\n`;
   }
   const mixins = fs.readFileSync(path.resolve(__dirname, '../sass/mixins.scss'), 'utf8');
