@@ -6,15 +6,21 @@ Kroket generates tokens and utility classes for your Sass project, as well as a 
 
 ## Features
 
-### Create Sass and JSON files
+### Create Sass and JSON files from your tokens
 
 With Kroket, you can use a single JavaScript file to create Sass and JSON files with your colors, sizes etc. This is ideal if you use these items outside your CSS (for example, in JavaScript or PHP) and want a single source of truth.
 
+#### Sass
+
 ```scss
+@import 'config';
+
 body {
     background-color: get-color('primary');
 }
 ```
+
+#### JavaScript
 
 ```js
 const tokens = require('tokens.json');
@@ -22,10 +28,79 @@ const tokens = require('tokens.json');
 console.log(tokens.color.primary);
 ```
 
+#### PHP
+
 ```php
 $tokens = json_decode(file_get_contents('path/to/tokens.json'), true);
 
 var_dump($tokens['color']['primary']);
+```
+
+### Automatically create (responsive) utility classes
+
+Kroket automatically creates utility classes from your config. For example, let's say this is (part of) your config:
+
+```js
+const colors = {
+  primary: '#ff00ff',
+  light: '#ffffff',
+  dark: '#252525',
+};
+
+const sizes = {
+  300: '0.8rem',
+  700: '1.95rem',
+};
+
+const config = {
+  breakpoints: {
+    sm: '32em',
+    md: '48em',
+    lg: '68em',
+  },
+  utilities: {
+    'bg': {
+      items: colors,
+      output: 'standard',
+      property: 'background',
+    },
+    'text': {
+      items: sizes,
+      output: 'responsive',
+      property: 'font-size',
+    },
+};
+```
+
+This config will generate the following classes for you:
+
+- `.bg-primary`
+- `.bg-light`
+- `.bg-dark`
+- `.text-300`
+- `.text-700`
+- `.sm:text-300`
+- `.sm:text-700`
+- `.md:text-300`
+- `.md:text-700`
+- `.lg:text-300`
+- `.lg:text-700`
+
+#### Helpful mixins and functions
+
+Kroket comes with a bunch of helpful Sass mixins and functions. These work especially well with our custom [VS Code extension](https://github.com/posty-studio/vscode-kroket).
+
+```scss
+.card {
+    @include apply-utility('font', 'heading');
+
+    background-color: get-color('white');
+
+    @include media-query('md') {
+        font-size: get-size('500');
+        border-top-left-radius: get-utility('radius', 'large');
+    }
+}
 ```
 
 ## Installation
