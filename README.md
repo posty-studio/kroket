@@ -1,28 +1,75 @@
 # Kroket
 
-Kroket generates tokens and utility classes for your Sass project.
+Kroket generates tokens and utility classes for your Sass project, as well as a JSON file for your tokens.
 
 *Based on [Gorko](https://github.com/hankchizljaw/gorko) and [Goron](https://github.com/hankchizljaw/goron) by [Andy Bell](https://github.com/hankchizljaw/).*
 
-## Getting started
+## Features
 
-Install Kroket:
+### Create Sass and JSON files
+
+With Kroket, you can use a single JavaScript file to create Sass and JSON files with your colors, sizes etc. This is ideal if you use these items outside your CSS (for example, in JavaScript or PHP) and want a single source of truth.
+
+```scss
+body {
+    background-color: get-color('primary');
+}
+```
+
+```js
+const tokens = require('tokens.json');
+
+console.log(tokens.color.primary);
+```
+
+```php
+$tokens = json_decode(file_get_contents('path/to/tokens.json'), true);
+
+var_dump($tokens['color']['primary']);
+```
+
+## Installation
 
 ```
 npm install kroket
 ```
 
-Then run it:
+## Usage
+
+### CLI
 
 ```
-kroket
+npx kroket
+```
+
+### Node
+
+```js
+const kroket = require('kroket');
+
+kroket();
+```
+
+### Gulp
+
+```js
+const kroket = require('kroket');
+
+function runKroket(done) {
+    kroket();
+    done();
+}
+
+function watch() {
+    gulp.watch('./kroket.config.js', runKroket);
+}
+
+gulp.task('default', gulp.series(runKroket, watch));
 ```
 
 ## Configuration
 
 You can add a file called `kroket.config.js` to the root of your project to customize the output. If you don't specify a file, Kroket uses the default config:
-
-### Default config
 
 ```js
 const colors = {

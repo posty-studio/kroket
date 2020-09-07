@@ -15,5 +15,5 @@ module.exports = () => {
   sassGenerator(config);
   jsonGenerator(config);
 
-  console.log(chalk.green('Config and classes generated!'));
+  console.log(chalk.green('[Kroket] Finished!'));
 };
