@@ -86,7 +86,7 @@ This config will generate the following classes for you:
 - `.lg:text-300`
 - `.lg:text-700`
 
-#### Helpful mixins and functions
+### Helpful mixins and functions
 
 Kroket comes with a bunch of helpful Sass mixins and functions. These work especially well with our custom [VS Code extension](https://github.com/posty-studio/vscode-kroket).
 
