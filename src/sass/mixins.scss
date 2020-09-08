@@ -14,7 +14,7 @@
   $utility: map-get(map-get($kroket-config, 'utilities'), $group);
   $property: map-get($utility, 'property');
   $items: map-get($utility, 'items');
-  $item-value: map-get($items, $value-key);
+  $item-value: map-get($items, $key);
 
   @if ($property and $item-value) {
     #{ $property }: #{$item-value};
