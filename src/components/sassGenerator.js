@@ -37,7 +37,7 @@ const generateCssUtilities = (config) => {
   if (config.breakpoints) {
     for (const [breakpoint, width] of Object.entries(config.breakpoints)) {
       response += `@media ${width} {
-        ${generateClasses(config.utilities, ['responsive'], `${breakpoint}\\:-`)}
+        ${generateClasses(config.utilities, ['responsive'], `${breakpoint}\\:`)}
       }\n\n`;
     }
   }
