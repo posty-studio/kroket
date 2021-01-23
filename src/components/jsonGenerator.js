@@ -8,13 +8,6 @@ const shell = require('shelljs');
  * @param {Object} config The config object
  */
 module.exports = (config) => {
-  if (!config.outputPath || (typeof config.outputPath === 'object' && !('json' in config.outputPath))) {
-    console.log(chalk.red("[Kroket] Please add an 'outputPath' option for JSON to your config."));
-    console.log(chalk.blue('[Kroket] Exiting.'));
-
-    return;
-  }
-
   if (!config.items) {
     return;
   }
@@ -30,6 +23,13 @@ module.exports = (config) => {
   }
 
   if (!Object.keys(json).length) {
+    return;
+  }
+
+  if (!config.outputPath || (typeof config.outputPath === 'object' && !('json' in config.outputPath))) {
+    console.log(chalk.red("[Kroket] Please add an 'outputPath' option for JSON to your config."));
+    console.log(chalk.blue('[Kroket] Exiting JSON generation.'));
+
     return;
   }
 

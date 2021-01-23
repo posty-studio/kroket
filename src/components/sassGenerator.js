@@ -116,7 +116,7 @@ const addMixins = (config) => {
 module.exports = (config) => {
   if (!config.outputPath || (typeof config.outputPath === 'object' && !('sass' in config.outputPath))) {
     console.log(chalk.red("[Kroket] Please add an 'outputPath' option for Sass to your config."));
-    console.log(chalk.blue('[Kroket] Exiting.'));
+    console.log(chalk.blue('[Kroket] Exiting Sass generation.'));
 
     return;
   }
