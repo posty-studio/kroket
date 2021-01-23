@@ -1,6 +1,6 @@
 {
   "name": "kroket",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "Kroket generates tokens and utility classes for your Sass project.",
   "main": "src/index.js",
   "scripts": {
